@@ -11,7 +11,6 @@ class WebElementHighlighter(object):
         self._previous_border_color = ""
         self._previous_background_color = ""
         self._changed_elements = []
-        # TODO: store changed elements by this lib.
 
     @property
     def previous_border_color(self):
@@ -49,12 +48,12 @@ class WebElementHighlighter(object):
     def change_property_value(self, element_id, property, value):
         for prop in self.get_properties_from_element(element_id):
             if prop.get('property') == property:
-                prop['property'] = value
+                prop['value'] = value
 
     def get_property_value(self, element_id, property):
         try:
             return [prop for prop in self.get_properties_from_element(element_id) if
-                    property == prop][0]
+                    property == prop.get('property')][0].get('value')
         except:
             return None
 
@@ -69,21 +68,42 @@ class WebElementHighlighter(object):
             self._changed_elements.append(
                 {'element_id': element_id, 'properties': [{'property': property, 'value': value}]})
 
+    def change_border_color_to_elements(self, webelements, border_width="2px", border_style="solid",
+                                        border_color="red"):
+        if len(webelements):
+            self.change_border_color(webelements[-1], border_width, border_style, border_color)
+            self.change_border_color_to_elements(webelements[:-1], border_width, border_style, border_color)
+
     def change_border_color(self, webelement, border_width="2px", border_style="solid", border_color="red"):
         self.store_changed_elements(webelement.id, 'border', webelement.value_of_css_property('border'))
         self.driver.execute_script(self.BORDER_COLOR_JS % (border_width, border_style, border_color), webelement)
 
     def change_border_color_by_complete_css_value(self, webelement, border_style="2px"):
-        self.previous_border_color = webelement.value_of_css_property('border')
+        self.store_changed_elements(webelement.id, 'border', webelement.value_of_css_property('border'))
         self.driver.execute_script(self.ONE_PARAMETER_BORDER_COLOR_JS % border_style, webelement)
+
+    def change_elements_to_default_border_color(self, webelements):
+        if len(webelements):
+            self.change_to_default_border_color(webelements[-1])
+            self.change_elements_to_default_border_color(webelements[:-1])
 
     def change_to_default_border_color(self, webelement):
         self.change_border_color_by_complete_css_value(webelement, self.get_property_value(webelement.id, 'border'))
+
+    def change_background_color_to_elements(self, webelements, background_color="yellow"):
+        if len(webelements):
+            self.change_background_color(webelements[-1], background_color)
+            self.change_background_color_to_elements(webelements[:-1], background_color)
 
     def change_background_color(self, webelement, background_color="yellow"):
         self.store_changed_elements(webelement.id, 'background-color',
                                     webelement.value_of_css_property('background-color'))
         self.driver.execute_script(self.BACKGROUND_COLOR_JS % background_color, webelement)
+
+    def change_elements_to_default_background_color(self, webelements):
+        if len(webelements):
+            self.change_to_default_background_color(webelements[-1])
+            self.change_elements_to_default_background_color(webelements[:-1])
 
     def change_to_default_background_color(self, webelement):
         self.change_background_color(webelement, self.get_property_value(webelement.id, 'background-color'))
@@ -100,12 +120,10 @@ class WebElementHighlighter(object):
 
     def make_them_blink(self, webelements, times=10, interval=50):
         for _ in xrange(times):
-            for webelement in webelements:
-                self.change_background_color(webelement)
-                self.change_border_color(webelement)
+            self.change_background_color_to_elements(webelements)
+            self.change_border_color_to_elements(webelements)
             time.sleep(interval / 1000.0)
 
-            for webelement in webelements:
-                self.change_background_color(webelement)
-                self.change_border_color(webelement)
+            self.change_elements_to_default_background_color(webelements)
+            self.change_elements_to_default_border_color(webelements)
             time.sleep(interval / 1000.0)
