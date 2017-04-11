@@ -45,7 +45,6 @@ class TestWebElementHighlighter(unittest.TestCase):
         self.webelement.properties = {'border': 'white'}
 
         self.wh.change_border_color(webelement=self.webelement, border_color='yellow')
-        print self.webelement.value_of_css_property('border')
 
         self.assertIn('yellow', self.webelement.value_of_css_property('border'))
 
