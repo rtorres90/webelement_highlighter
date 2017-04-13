@@ -147,3 +147,6 @@ class WebElementHighlighter(object):
 
     def focus_to_element(self, webelement):
         self.driver.execute_script("arguments[0].scrollIntoView();", webelement)
+
+    def flush_changed_elements_list(self):
+        self._changed_elements = []
