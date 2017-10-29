@@ -7,6 +7,10 @@ class WebElementHighlighter(object):
     BACKGROUND_COLOR_JS = "arguments[0].style.backgroundColor = '%s';"
 
     def __init__(self, driver):
+        """This is the contructor of the *WebElementHighlighter* class.
+
+:param driver: This parameters has to be a WebDriver instance.
+"""
         self.driver = driver
         self._changed_elements = []
 
