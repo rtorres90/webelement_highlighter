@@ -1,6 +1,6 @@
 WebElementHighlighter
 =====================
-[![Build Status](https://travis-ci.org/rtorres90/webelement_highlighter.svg?branch=master)](https://travis-ci.org/rtorres90/webelement_highlighter)
+[![Python linting](https://github.com/rtorres90/webelement_highlighter/actions/workflows/python-package.yml/badge.svg?branch=master)](https://github.com/rtorres90/webelement_highlighter/actions/workflows/python-package.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 WebElementHighlighter is library to highlight WebElements. It was made to use it on automated tests, specially when you want to highlight errors on a webpage.
