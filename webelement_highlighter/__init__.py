@@ -2,6 +2,7 @@ import time
 
 
 class WebElementHighlighter(object):
+    """This is the webelement highlighter."""
     BORDER_COLOR_JS = "arguments[0].style.border = '%s %s %s';"
     ONE_PARAMETER_BORDER_COLOR_JS = "arguments[0].style.border = '%s';"
     BACKGROUND_COLOR_JS = "arguments[0].style.backgroundColor = '%s';"
