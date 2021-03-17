@@ -10,5 +10,5 @@ setup(
   url = 'https://github.com/rtorres90/webelement_highlighter',
   download_url = 'https://github.com/rtorres90/webelement_highlighter/archive/0.5.tar.gz',
   keywords = ['webdriver', 'selenium', 'testing', 'automation'],
-  classifiers = ['Programming Language :: Python :: 2.7'],
+  classifiers = ['Programming Language :: Python :: 3.9'],
 )

@@ -1,8 +1,0 @@
-language: python
-python:
-  - "2.7"
-cache: pip
-install:
-  - pip install mock
-script:
-  - python -m unittest tests.test_webelement_highlighter

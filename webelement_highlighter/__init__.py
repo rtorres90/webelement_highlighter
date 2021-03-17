@@ -25,7 +25,7 @@ class WebElementHighlighter(object):
         self.change_background_and_border_color(webelement)
         self.focus_to_element(webelement)
         if stop:
-            raw_input('Press any key to continue...')
+            input('Press any key to continue...')
         else:
             self.stop_for_an_interval(interval)
         self.change_to_default_background_and_border_color(webelement)
@@ -33,7 +33,7 @@ class WebElementHighlighter(object):
     def make_it_blink(self, webelement, times=10, interval=50):
         if not webelement.is_displayed():
             return
-        for _ in xrange(times):
+        for _ in range(times):
             self.change_background_and_border_color(webelement)
             self.stop_for_an_interval(interval)
 
@@ -41,7 +41,7 @@ class WebElementHighlighter(object):
             self.stop_for_an_interval(interval)
 
     def make_them_blink(self, webelements, times=10, interval=50):
-        for _ in xrange(times):
+        for _ in range(times):
             self.change_background_color_to_elements(webelements)
             self.change_border_color_to_elements(webelements)
             self.stop_for_an_interval(interval)
@@ -100,7 +100,7 @@ class WebElementHighlighter(object):
         try:
             return [prop for prop in self.get_properties_from_element(element_id) if
                     property == prop.get('property')][0].get('value')
-        except:
+        except Exception:
             return None
 
     def get_properties_from_element(self, element_id):
