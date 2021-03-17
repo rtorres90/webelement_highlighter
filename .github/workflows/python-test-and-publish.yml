@@ -1,4 +1,4 @@
-name: Upload Python Package
+name: Test and Publish to Pypi
 
 on:
   release:
@@ -20,7 +20,8 @@ jobs:
         python -m pip install --upgrade pip
         pip install setuptools wheel twine mock
     - name: run unit tests
-      run: python -m unittest tests.test_webelement_highlighter
+      run: |
+        python -m unittest tests.test_webelement_highlighter
     - name: Build and publish
       env:
         TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
